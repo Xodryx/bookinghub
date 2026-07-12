@@ -1,5 +1,7 @@
 # BookingHub
 
+[![CI](https://github.com/Xodryx/bookinghub/actions/workflows/ci.yml/badge.svg)](https://github.com/Xodryx/bookinghub/actions/workflows/ci.yml)
+
 A multi-tenant booking SaaS for small businesses (studios, salons, consultants),
 built as a **full-stack portfolio project**: a Laravel REST API consumed by an
 Angular single-page application, fully containerized with Docker.
