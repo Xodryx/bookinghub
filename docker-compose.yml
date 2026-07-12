@@ -1,0 +1,44 @@
+# Main orchestrator for BookingHub.
+# Three services on the same Docker network: they reach each other by name (e.g. host "mysql").
+services:
+  # --- Database ---
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: bookinghub
+      MYSQL_USER: bookinghub
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - "3307:3306"          # host:container — 3307 to avoid clashing with any local MySQL
+    volumes:
+      - mysql-data:/var/lib/mysql   # data survives container restarts
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-psecret"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  # --- Laravel backend (php-fpm) ---
+  backend:
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/var/www/html   # bind mount: code on your machine is live inside the container
+    depends_on:
+      mysql:
+        condition: service_healthy   # backend starts only once MySQL is ready
+
+  # --- Web server ---
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8000:80"            # the API will be at http://localhost:8000
+    volumes:
+      - ./backend:/var/www/html
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+
+volumes:
+  mysql-data:

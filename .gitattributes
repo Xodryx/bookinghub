@@ -1,0 +1,4 @@
+# Normalize line endings to LF so shell scripts and configs work inside
+# the Linux containers even when the repo is cloned on Windows.
+* text=auto eol=lf
+*.sh text eol=lf

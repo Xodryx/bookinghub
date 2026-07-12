@@ -1,0 +1,7 @@
+# OS / editor noise (the Laravel app keeps its own .gitignore under backend/)
+.DS_Store
+Thumbs.db
+/.idea
+/.vscode
+/.fleet
+*.log
