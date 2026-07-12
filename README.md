@@ -85,11 +85,11 @@ docker compose exec backend php artisan migrate
 
 - [x] Dockerized environment (nginx + php-fpm + MySQL)
 - [x] Laravel API foundation, running and migrated
-- [ ] Authentication with Sanctum (register / login / logout)
-- [ ] Tenants & users (multi-tenant model)
+- [x] Authentication with Sanctum (register / login / logout)
+- [x] Tenants & users (multi-tenant model)
+- [x] Feature tests for the auth flow
 - [ ] Services & availability management
 - [ ] Bookings (create / list / cancel)
-- [ ] Feature tests for the API
 - [ ] Angular front-end (SPA)
 
 ## Author
